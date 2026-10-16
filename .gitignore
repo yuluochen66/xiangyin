@@ -1,0 +1,73 @@
+# =====================================================================
+# 本文件确保「不该公开的内容」不会被提交。
+# 规则分三类：依赖与产物、机密与凭证、本机与编辑器残留。
+# =====================================================================
+
+# ---------- 依赖与构建产物 ----------
+node_modules/
+.pnpm-store/
+dist/
+dist-ssr/
+dist-single/
+.vite/
+*.tsbuildinfo
+
+# ---------- 环境变量与机密 ----------
+# 任何 .env 文件都可能含真实配置：一律不提交，只提交 .env.example
+.env
+.env.*
+!.env.example
+
+# 密钥 / 证书 / 凭证文件
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.jks
+*.keystore
+*.ppk
+id_rsa*
+id_ed25519*
+*.asc
+*.gpg
+
+# 云服务 / 第三方平台凭证（如有）
+.aws/
+.azure/
+.gcp/
+.netrc
+.npmrc.local
+
+# ---------- 日志与临时文件 ----------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# ---------- 本机与编辑器残留 ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.code-workspace
+
+# ---------- 本仓库专用的本地工具目录 ----------
+# .dsh / .taste-skill / .impeccable 是 AI 辅助工具的工作目录（含 19MB 二进制），
+# 与项目本身无关，不应进入公开仓库。
+.dsh/
+.taste-skill/
+.impeccable/
+
+# 临时脚本与截图
+node_modules/.tmp/

@@ -1,0 +1,38 @@
+# 行尾与文本属性统一约定。
+#
+# 为什么需要这个文件：Git 在 Windows 上默认会把换行改写成 CRLF，而：
+#   - 源码/配置用 LF 才能与 .editorconfig、Prettier 保持一致；
+#   - Windows 批处理（.cmd/.bat）**必须**是 CRLF，否则 cmd.exe 会把命令行解析错
+#     （本项目的 启动网站.cmd 就属于这一类）。
+# 因此这里显式声明，避免因 clone 环境的 autocrlf 设置不同而产生差异。
+
+# 默认：自动识别文本文件，检出时统一用 LF
+* text=auto eol=lf
+
+# Windows 批处理脚本必须保留 CRLF
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# 二进制文件不做任何换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.mp3 binary
+*.wav binary
+*.m4a binary
+*.aac binary
+*.flac binary
+*.ogg binary
+*.pdf binary
+*.zip binary
+*.exe binary
+
+# pnpm 锁文件不参与 diff 统计，避免 PR 里被算成"代码量"
+pnpm-lock.yaml -diff linguist-generated

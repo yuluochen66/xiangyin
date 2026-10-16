@@ -1,0 +1,408 @@
+@import 'tailwindcss';
+
+/* =====================================================================
+   志书校样 · 设计令牌
+   视觉世界见 DESIGN.md。核心：纸与墨 + 三个只承担语义的墨色 +
+   唯一的非语义强调色（钤印淡紫）。
+   ===================================================================== */
+@theme {
+  /* ---- 纸 ---- */
+  --color-paper: #f2f1f3;
+  --color-paper-2: #ecebeb;
+  --color-sheet: #fbfafb;
+  --color-paper-3: #e9e7e7;
+
+  /* ---- 墨（从不用纯黑） ---- */
+  --color-ink: #16181a;
+  --color-ink-2: #33383b;
+  --color-ink-3: #4e5356;
+  --color-ink-4: #676c70; /* 正文允许的最浅值，≥4.5:1 */
+
+  /* ---- 界行 ---- */
+  --color-rule: #c9c7c4;
+  --color-rule-soft: #dedcd8;
+  --color-rule-strong: #9a9793;
+
+  /* ---- 钤印：唯一的非语义强调 ---- */
+  --color-seal: #dcddf3;
+  --color-seal-2: #c8caf0;
+  --color-seal-ink: #3a3d85;
+
+  /* ---- 语义墨色（只承担语义） ---- */
+  --color-vermilion: #a92f1c;
+  --color-vermilion-wash: #f7e8e4;
+  --color-verified: #1c6344;
+  --color-verified-wash: #e6efea;
+  --color-attention: #7f5c0e;
+  --color-attention-wash: #f5eeda;
+
+  /* ---- 字体 ---- */
+  --font-sans:
+    'Source Han Sans SC', 'Noto Sans CJK SC', 'PingFang SC', 'Microsoft YaHei', system-ui,
+    -apple-system, 'Segoe UI', sans-serif;
+  --font-serif:
+    'Source Han Serif SC', 'Noto Serif CJK SC', 'Songti SC', SimSun, 'Times New Roman', serif;
+  --font-mono:
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Liberation Mono',
+    Menlo, monospace;
+
+  /* ---- 排版刻度 ---- */
+  --text-2xs: 0.6875rem; /* 11 */
+  --text-xs: 0.75rem; /* 12 */
+  --text-sm: 0.8125rem; /* 13 */
+  --text-base: 0.9375rem; /* 15 */
+  --text-lg: 1.125rem; /* 18 */
+  --text-xl: 1.375rem; /* 22 */
+  --text-2xl: 1.875rem; /* 30 */
+  --text-3xl: 2.75rem; /* 44 */
+
+  --radius-none: 0;
+}
+
+/* =====================================================================
+   基础层
+   ===================================================================== */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  /* 暗色变体：令牌层已隔离，切换只改纸与墨 */
+  html[data-theme='dark'] {
+    color-scheme: dark;
+    --color-paper: #16181a;
+    --color-paper-2: #1c1f21;
+    --color-sheet: #1f2325;
+    --color-paper-3: #262a2c;
+    --color-ink: #ecebeb;
+    --color-ink-2: #c8c6c4;
+    --color-ink-3: #a3a19e;
+    --color-ink-4: #85837f;
+    --color-rule: #3a3d3f;
+    --color-rule-soft: #2c2f31;
+    --color-rule-strong: #55585a;
+    --color-seal: #2b2e52;
+    --color-seal-2: #363a66;
+    --color-seal-ink: #c3c6f0;
+    --color-vermilion: #e08a78;
+    --color-vermilion-wash: #3a2320;
+    --color-verified: #7cc4a3;
+    --color-verified-wash: #1e332a;
+    --color-attention: #dcc07a;
+    --color-attention-wash: #332c1a;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    /* 纸质：冷处偏绿、暖处偏粉，极轻，不构成渐变装饰 */
+    background-image:
+      radial-gradient(120% 80% at 0% 0%, rgb(238 243 239 / 0.9) 0%, transparent 55%),
+      radial-gradient(120% 80% at 100% 0%, rgb(250 246 245 / 0.9) 0%, transparent 55%);
+    background-attachment: fixed;
+    font-feature-settings: 'kern' 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    color: var(--color-ink);
+    line-height: 1.25;
+    /* 标题上方留白 > 下方 */
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: var(--text-xl);
+    letter-spacing: -0.015em;
+  }
+  h3 {
+    font-size: var(--text-lg);
+  }
+  h4 {
+    font-size: var(--text-base);
+  }
+
+  /* 数据与编号：等宽只用于代码、数据、度量 */
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+    font-size: 0.92em;
+  }
+
+  /* 表格数字对齐 */
+  table,
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: var(--color-rule-strong);
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+  a:hover {
+    text-decoration-color: var(--color-ink);
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  /* ---- 浏览器表面：选择、插入符、焦点、滚动条、控件 ---- */
+  ::selection {
+    background-color: var(--color-seal);
+    color: var(--color-seal-ink);
+  }
+
+  input,
+  textarea,
+  [contenteditable] {
+    caret-color: var(--color-ink);
+  }
+
+  ::placeholder {
+    color: var(--color-ink-4);
+    opacity: 1;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-seal-ink);
+    outline-offset: 2px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-rule) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-rule);
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-rule-strong);
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  button,
+  [role='button'],
+  select,
+  summary,
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='range'],
+  progress {
+    accent-color: var(--color-seal-ink);
+  }
+
+  select {
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--color-ink-3) 50%),
+      linear-gradient(135deg, var(--color-ink-3) 50%, transparent 50%);
+    background-position:
+      calc(100% - 14px) calc(50% + 1px),
+      calc(100% - 9px) calc(50% + 1px);
+    background-size:
+      5px 5px,
+      5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 26px;
+  }
+}
+
+/* =====================================================================
+   印刷家具（组件层）
+   ===================================================================== */
+@layer components {
+  /* 校样纸面 */
+  .sheet {
+    background-color: var(--color-sheet);
+    border: 1px solid var(--color-rule);
+  }
+
+  /* 界行 */
+  .rule-t {
+    border-top: 1px solid var(--color-rule);
+  }
+  .rule-b {
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .rule-l {
+    border-left: 1px solid var(--color-rule);
+  }
+  .rule-strong-b {
+    border-bottom: 1px solid var(--color-rule-strong);
+  }
+
+  /* 阅读行宽 */
+  .measure {
+    max-width: 72ch;
+  }
+  .measure-tight {
+    max-width: 58ch;
+  }
+
+  /* 等宽元信息：编号、时间码、计数 */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.06em;
+    color: var(--color-ink-4);
+  }
+
+  /* 小号结构标签（非数据，用正文字体而非等宽） */
+  .field-label {
+    font-size: var(--text-2xs);
+    letter-spacing: 0.08em;
+    color: var(--color-ink-4);
+  }
+
+  /* 注册标记：印刷定位语言 */
+  .reg-mark {
+    position: relative;
+  }
+  .reg-mark::before,
+  .reg-mark::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-rule-strong);
+  }
+  .reg-mark::before {
+    left: 0;
+    top: 0;
+    width: 9px;
+    height: 1px;
+  }
+  .reg-mark::after {
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 9px;
+  }
+
+  /* 图版角标：四角十字 */
+  .plate-corner::before,
+  .plate-corner::after {
+    content: '+';
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1;
+    color: var(--color-rule-strong);
+  }
+  .plate-corner::before {
+    left: 6px;
+    top: 4px;
+  }
+  .plate-corner::after {
+    right: 6px;
+    bottom: 4px;
+  }
+
+  /* 打样章 */
+  .stamp {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    letter-spacing: 0.14em;
+    color: var(--color-seal-ink);
+    border: 1px solid var(--color-seal-2);
+    background-color: var(--color-seal);
+    padding: 1px 6px;
+  }
+
+  /* 可滚区域 */
+  .scroll-area {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-rule) transparent;
+  }
+
+  /* 唯一的一处动效：落版（界行自左划出） */
+  .sweep-in {
+    animation: sweep-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes sweep-in {
+    from {
+      clip-path: inset(0 100% 0 0);
+      opacity: 0.4;
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+    }
+  }
+
+  /* 进行中：一道**静止的实线**，不是纹理、也不循环。
+     两条都刻意避开：无限循环动画是在索取注意力；斜纹/条纹纹理是生成式界面的
+     典型签名。印刷世界的「正在校」用一道界线加一句说明就够了，
+     真正需要动的地方只有一处：内容落版时的 .sweep-in（一次性）。 */
+  .pending-line {
+    height: 1px;
+    background-color: var(--color-seal-ink);
+    opacity: 0.65;
+  }
+
+  /* 按钮上的进行中标记：底部一道静止实线，不改变元素尺寸 */
+  .pending-underline {
+    position: relative;
+  }
+  .pending-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: currentColor;
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .sweep-in {
+      clip-path: none;
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# 构建产物与第三方代码
+dist
+node_modules
+.pnpm-store
+
+# 技能与工具的工作目录
+.taste-skill
+.impeccable
+.dsh
+
+# 文档是手写散文，Prettier 只会带来 Markdown 表格对齐噪声，且需求 3 针对代码
+*.md
+docs/**
+
+pnpm-lock.yaml

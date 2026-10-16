@@ -1,0 +1,9 @@
+# pnpm 11 配置。
+#
+# allowBuilds：esbuild 需要执行 install.js 校验平台二进制，否则 vite 无法启动。
+# nodeLinker=hoisted：本工作区路径包含非 ASCII 字符，pnpm 默认的 isolated 链接器
+# 会生成指向乱码路径的 junction，导致 Node 无法解析（ERR_MODULE_NOT_FOUND）。
+# hoisted 使用真实目录，规避该问题。
+allowBuilds:
+  esbuild: true
+nodeLinker: hoisted

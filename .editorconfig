@@ -1,0 +1,23 @@
+# 编辑器统一约定。所有主流编辑器与 IDE 都会读取本文件。
+# 与 .prettierrc.json 保持一致：Prettier 负责格式化，本文件负责编辑器内的即时行为。
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = 100
+
+[*.md]
+# Markdown 的行尾空格是有意义的（换行），不裁剪
+trim_trailing_whitespace = false
+
+[*.{cmd,bat}]
+# Windows 批处理必须使用 CRLF，否则 cmd.exe 会按错误的行边界解析命令
+end_of_line = crlf
+
+[*.{yml,yaml}]
+indent_size = 2
